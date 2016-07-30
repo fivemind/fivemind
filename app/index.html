@@ -5,25 +5,48 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
+  <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
   <link href='style.css' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
 
+  <div id="left-column" class="column"></div>
+
+  <div id="center-column" class="column">
+    <div id="map-tiles" class="map-layer tiles"></div>
+    <div class="map-layer overlay">
+      <canvas id="map-overlay" width="624" height="432"></canvas>
+      <div class="map-info top-left"></div>
+      <div class="map-info top-right"></div>
+      <div class="map-info top-middle"></div>
+      <div class="map-info bottom-left"></div>
+      <div class="map-info bottom-right"></div>
+      <div class="map-info bottom-middle"></div>
+      <div class="map-info right-middle"></div>
+    </div>
+  </div>
+
+  <div id="right-column" class="column"></div>
+
   <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
+
+  <script src="js/KdTree-min.js"></script>
 
   <script src="js/lokijs.js"></script>
   <script src="js/loki-indexed-adapter.js"></script>
 
   <script src="js/FMApp.js"></script>
+  <script src="js/FMMap.js"></script>
 
   <script>
 
     var app;
 
     var config = {
-
+      accessToken: 'pk.eyJ1IjoidHJhZmZpY2siLCJhIjoib0lXNmk3ZyJ9.Cz_xqOga9nYvnho-7u1LIQ'
     };
 
     var db = new loki('fivemind', {
@@ -37,6 +60,10 @@
     function init() {
       app = new FMApp(db, config);
     }
+
+    var points = [
+      {lat: -34.34456994717239, lng: 138.83697509765625}
+    ];
 
   </script>
 

@@ -5,3 +5,103 @@ body {
   background-color: #040406;
   color: #427381;
 }
+
+.leaflet-container {
+  background: #040406;
+}
+
+.column {
+  position: relative;
+  float: left;
+  margin: 1% 1% 0 1%;
+}
+
+#left-column {
+  width: 19%;
+}
+
+#center-column {
+  width: 64%;
+}
+
+#right-column {
+  float: right;
+  width: 10%;
+}
+
+#map-overlay {
+  border-style: solid;
+  border-color: black;
+  border-width: 0;
+}
+
+.map-layer {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+}
+
+.map-info {
+  position: absolute;
+  z-index: 3;
+  background-color: rgba(0, 255, 0, 0.5);
+}
+
+.map-layer.tiles {
+  z-index: 1;
+}
+
+.map-layer.overlay {
+  z-index: 2;
+  pointer-events: none;
+}
+
+.map-info.top-left {
+  top: 0;
+  left: 0;
+  width: 19%;
+  height: 7.5%;
+}
+
+.map-info.top-middle {
+  top: 0;
+  left: 50.5%;
+  height: 5%;
+  width: 24%;
+}
+
+.map-info.top-right {
+  top: 0;
+  right: 0;
+  width: 17%;
+  height: 5%;
+}
+
+.map-info.bottom-left {
+  bottom: 0;
+  left: 0;
+  width: 15%;
+  height: 41.5%;
+}
+
+.map-info.bottom-right {
+  bottom: 0;
+  right: 0;
+  width: 28.5%;
+  height: 8%;
+}
+
+.map-info.bottom-middle {
+  bottom: 0;
+  left: 23.5%;
+  width: 22%;
+  height: 8%;
+}
+
+.map-info.right-middle {
+  right: 0;
+  top: 31%;
+  width: 5.5%;
+  height: 21%;
+}
