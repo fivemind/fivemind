@@ -13,7 +13,7 @@ var FMApp = function(db, config) {
     accessToken: config.accessToken
   }).addTo(leafletMap);
 
-  this.map = new FMMap(leafletMap, '#map-tiles', '#map-overlay', points);
+  this.map = new FMMap(leafletMap, '#map-tiles', '#map-overlay', fmpoints);
 
   this.createLeftSidebar();
   this.createRightSidebar();

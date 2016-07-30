@@ -9,7 +9,11 @@ var COLR_BACKGROUND = 'rgb(4, 4, 6)';
 var COLR_GRID_MAJOR = 'rgba(232, 250, 174, 0.3)';
 var COLR_GRID_MINOR = 'rgba(105, 203, 212, 0.1)';
 
-var COLR_ALERT_HIGH = 'rgb(194, 0, 0)';
+var COLR_RISK_EXTREME = 'rgb(194,0,0)';
+var COLR_RISK_VERYHIGH = 'rgb(242,70,58)';
+var COLR_RISK_HIGH = 'rgb(165,51,61)';
+var COLR_RISK_MEDIUM = 'rgb(240,141,74)';
+var COLR_RISK_LOW = 'rgb(27,183,170)';
 
 var ctx;
 
@@ -141,7 +145,11 @@ function distance(a, b) {
 }
 
 function updateCellBuffer() {
-  var nearest;
+  var i = 0;
+  var n = 0;
+  var risk = 0;
+  var greatest;
+  var selected;
   var cellMid = cellSize / 2;
   var centerLatLng = map.getCenter();
   var centerPoint = map.latLngToLayerPoint(centerLatLng);
@@ -156,13 +164,26 @@ function updateCellBuffer() {
       point.x = originX + cellMid + x * cellSize;
       point.y = originY + cellMid + y * cellSize;
 
-      nearest = tree.nearest(map.layerPointToLatLng(point), 1, filter);
+      nearest = tree.nearest(map.layerPointToLatLng(point), 5, filter);
 
       if (!nearest || !nearest[0]) {
         cellBuffer[cellsWide * y + x] = undefined;
       }
       else {
-        cellBuffer[cellsWide * y + x] = nearest[0][0];
+
+        risk = -1;
+
+        for (i = 0, ii = nearest.length; i < ii; i++) {
+
+          n = nearest[i][0];
+
+          if (n.risk >= risk) {
+            cellBuffer[cellsWide * y + x] = n;
+            risk = n.risk;
+          }
+
+        }
+
       }
 
     }
@@ -355,7 +376,7 @@ function hatchRect(x1, y1, dx, dy, delta, color){
 
 }
 
-function clipActiveCells(cb) {
+function clipActiveCells(risk, cb) {
   var rx = 0;
   var ry = 0;
 
@@ -365,12 +386,16 @@ function clipActiveCells(cb) {
   var x1 = renderWidth;
   var y1 = renderHeight;
 
+  var point;
+
   ctx.save();
 
   for (var x = 0; x < cellsWide; x++) {
     for (var y = 0; y < cellsHigh; y++) {
 
-      if (!cellBuffer[cellsWide * y + x]) {
+      point = cellBuffer[cellsWide * y + x];
+
+      if (!point || point.risk !== risk) {
         continue;
       }
 
@@ -399,8 +424,24 @@ function clipActiveCells(cb) {
 
 }
 
-function drawHighAlertCells(x, y, dx, dy) {
-  hatchRect(x, y, dx, dy, 1.45 + Math.floor((frame / 4.5) % 3), COLR_ALERT_HIGH);
+function drawExtremeRiskCells(x, y, dx, dy) {
+  hatchRect(x, y, dx, dy, 1.45 + Math.floor((frame / 4.5) % 3), COLR_RISK_EXTREME);
+}
+
+function drawVeryHighRiskCells(x, y, dx, dy) {
+  hatchRect(x, y, dx, dy, 3, COLR_RISK_VERYHIGH);
+}
+
+function drawHighRiskCells(x, y, dx, dy) {
+  hatchRect(x, y, dx, dy, 3, COLR_RISK_HIGH);
+}
+
+function drawMediumRiskCells(x, y, dx, dy) {
+  hatchRect(x, y, dx, dy, 3, COLR_RISK_MEDIUM);
+}
+
+function drawLowRiskCells(x, y, dx, dy) {
+  hatchRect(x, y, dx, dy, 3, COLR_RISK_LOW);
 }
 
 function drawFrame() {
@@ -409,7 +450,11 @@ function drawFrame() {
 
   drawMinorGrid();
 
-  clipActiveCells(drawHighAlertCells);
+  clipActiveCells(4, drawExtremeRiskCells);
+  clipActiveCells(3, drawVeryHighRiskCells);
+  clipActiveCells(2, drawHighRiskCells);
+  clipActiveCells(1, drawMediumRiskCells);
+  clipActiveCells(0, drawLowRiskCells);
 
   drawBorder();
 

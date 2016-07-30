@@ -161,8 +161,8 @@ function FMTrainer(samples, config) {
   this.precision = Math.pow(10, cfg.precision) ||
     Math.pow(10, Math.ceil(Math.log(samples.length * samples[0].length) / Math.LN10) + 2);
 
-  this.samples = samples;
-  this.normSamples = this.duplicateSamples();
+  this.samples = this.duplicateSamples(samples);
+  this.normSamples = samples;
 
   this.randomiseSamples();
 
@@ -170,14 +170,14 @@ function FMTrainer(samples, config) {
 
 }
 
-FMTrainer.prototype.duplicateSamples = function() {
-  var samples = this.samples.slice(0);
+FMTrainer.prototype.duplicateSamples = function(samples) {
+  var copy = samples.slice(0);
 
-  for (var i = 0, ii = samples.length; i < ii; i++) {
-    samples[i] = samples[i].slice(0);
+  for (var i = 0, ii = copy.length; i < ii; i++) {
+    copy[i] = copy[i].slice(0);
   }
 
-  return samples;
+  return copy;
 };
 
 FMTrainer.prototype.randomiseSamples = function() {
@@ -190,7 +190,6 @@ FMTrainer.prototype.randomiseSamples = function() {
   for (var i = 0, ii = samples.length; i < ii; i++) {
     for (j = 0; j < jj; j++) {
       samples[i][j] += Math.round(Math.random() * precision) / precision * scale;
-      console.log( Math.round(Math.random() * precision) / precision * scale);
     }
   }
 
@@ -424,7 +423,7 @@ if (typeof module !== 'undefined' && module.exports) {
   };
 }
 
-var samples = [
+/*var samples = [
   [138.6859130859375, -34.11635246997273],
   [139.1143798828125, -33.975253485075896],
   [139.5263671875, -34.089061315849946],
@@ -440,4 +439,4 @@ var trainer = new FMTrainer(samples, {
 
 trainer.train(function(err, index) {
   console.log(index);
-});
+});*/
