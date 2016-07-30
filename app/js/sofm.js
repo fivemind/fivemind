@@ -37,7 +37,7 @@ FMNeuron.prototype.hopsTo = function(target, length) {
   var current = target;
 
   while (current != this) {
-  	current = current.left;
+    current = current.left;
     left++;
   }
 
@@ -47,8 +47,8 @@ FMNeuron.prototype.hopsTo = function(target, length) {
 };
 
 function FMRing(start) {
-	this.start = start;
-	this.length = 1;
+  this.start = start;
+  this.length = 1;
 }
 
 FMRing.prototype.moveAll = function(sample, gain) {
@@ -134,7 +134,7 @@ FMRing.prototype.distance = function() {
 };
 
 FMRing.prototype.regain = function(gain, n) {
-	return FMGAIN * Math.exp(-(n * n) / (gain * gain));
+  return FMGAIN * Math.exp(-(n * n) / (gain * gain));
 };
 
 function FMTrainer(samples, config) {
@@ -199,7 +199,7 @@ FMTrainer.prototype.randomiseSamples = function() {
 FMTrainer.prototype.deleteAll = function() {
   if (this.neurons !== null) {
     while (this.neurons.start !== null) {
-    	this.neurons.delete(this.neurons.start);
+      this.neurons.delete(this.neurons.start);
     }
     this.neurons = null;
   }
@@ -214,11 +214,11 @@ FMTrainer.prototype.debug = function() {
   var n = this.neurons.start;
   var jj = this.samples[0].length;
 
-	console.log("cycle: " + this.cycle + " length: " + this.lastTourLength);
+  console.log("cycle: " + this.cycle + " length: " + this.lastTourLength);
 
   for (i = 0, ii = this.samples.length; i < ii; i++) {
 
-  	x = this.samples[i];
+    x = this.samples[i];
 
     buf = 'sample ' + i + ': ';
 
@@ -262,7 +262,7 @@ FMTrainer.prototype.cancel = function() {
 
 FMTrainer.prototype.train = function(cb) {
 
-	this.cancel();
+  this.cancel();
 
   this.setup();
 
