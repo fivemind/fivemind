@@ -14,5 +14,25 @@ var FMApp = function(db, config) {
   }).addTo(leafletMap);
 
   this.map = new FMMap(leafletMap, '#map-tiles', '#map-overlay', points);
-  
+
+  this.createLeftSidebar();
+  this.createRightSidebar();
+
+};
+
+FMApp.prototype.createLeftSidebar = function() {
+
+  var leftSidebar = this.leftSidebar = new FMSidebar('#left-sidebar', '#tpl-left-');
+
+  leftSidebar.addSection('nearby', 'nearby', 'top five');
+  leftSidebar.addSection('drone', 'drone', 'flight plan');
+
+  leftSidebar.appendItem('nearby', {});
+
+};
+
+FMApp.prototype.createRightSidebar = function() {
+
+  //this.rightSidebar = new FMSidebar('#right-sidebar', '#tpl-right-');
+
 };
