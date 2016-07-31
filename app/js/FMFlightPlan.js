@@ -1,5 +1,7 @@
 function FMFlightPlan() {
 
+  this.tplSpinner = Handlebars.compile($('#tpl-flight-plan-spinner').html());
+
   this.tplItem = Handlebars.compile($('#tpl-flight-plan-item').html());
   this.tplExport = Handlebars.compile($('#tpl-flight-plan-export').html());
 
@@ -11,16 +13,26 @@ function FMFlightPlan() {
 
 FMFlightPlan.prototype.update = function(waypoints) {
 
+  if ($('.loader').length === 0) {
+
+    $('#flight-plan-items').children().fadeOut().parent().empty();
+
+    $('#flight-plan-items').append(this.tplSpinner({}));
+
+  }
+
   if (!waypoints.length) {
-    console.log('no waypoints');
+
+    setTimeout(function() {
+      $('#flight-plan-items').children().fadeOut().parent().empty();
+    }, 1000);
+
     return;
   }
 
   if (this.trainer) {
     this.trainer.cancel();
   }
-
-  $('#flight-plan-items').empty();
 
   var self = this;
 
@@ -45,6 +57,8 @@ FMFlightPlan.prototype.update = function(waypoints) {
 };
 
 FMFlightPlan.prototype.render = function(index, waypoints) {
+
+  $('#flight-plan-items').children().fadeOut().parent().empty();
 
   for (var i = 0, ii = index.length; i < ii; i++) {
     this.renderItem( waypoints[index[i]] );

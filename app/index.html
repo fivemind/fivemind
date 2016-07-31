@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
+  <link href='spinner.css' rel='stylesheet' type='text/css'>
   <link href='style.css' rel='stylesheet' type='text/css'>
 
 </head>
@@ -40,11 +41,25 @@
   </script>
 
   <script id="tpl-flight-plan-item" type="text/x-handlebars-template">
-    <div>{{lat}} {{lng}}</div>
+    <div style="display: inline-block; width: 100%; padding: 2px 2px 2px 4px">
+      <div style="float:left">
+        <img src="map-marker.svg" width="16" height="16" />
+      </div>
+      <div style="float:left">
+        <div>{{lat}}</div>
+        <div>{{lng}}</div>
+      </div>
+    </div>
   </script>
 
   <script id="tpl-flight-plan-export" type="text/x-handlebars-template">
-    <a onclick="app.flightPlan.export();">export</a>
+    <div style="display: inline-block; width: 100%; padding: 4px 2px 2px 9px;">
+      <a onclick="app.flightPlan.export();" href="#">download</a>
+    </div>
+  </script>
+
+  <script id="tpl-flight-plan-spinner" type="text/x-handlebars-template">
+    <div class="loader"></div>
   </script>
 
   <script id="tpl-awm-mission-header" type="text/x-handlebars-template">

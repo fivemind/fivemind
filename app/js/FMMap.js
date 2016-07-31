@@ -549,7 +549,7 @@ FMMap.prototype._init = function(leafletMap, selTiles, selCanvas, points) {
 
   map.clicked = 0;
 
-  map.on('click', function(e) {
+  /*map.on('click', function(e) {
     map.clicked = map.clicked + 1;
     setTimeout(function() {
       if(map.clicked == 1) {
@@ -562,6 +562,10 @@ FMMap.prototype._init = function(leafletMap, selTiles, selCanvas, points) {
   map.on('dblclick', function(event){
     map.clicked = 0;
     map.zoomIn();
+  });*/
+
+  map.on('click', function(e) {
+    app.flightPlan.update(getWaypoints(e.latlng, 50, 10));
   });
 
   map.on('move', updateCellBuffer);
