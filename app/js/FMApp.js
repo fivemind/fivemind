@@ -8,12 +8,14 @@ var FMApp = function(db, config) {
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: '',
-    maxZoom: 18,
+    maxZoom: 17,
     id: 'mapbox.satellite',
     accessToken: config.accessToken
   }).addTo(leafletMap);
 
   this.map = new FMMap(leafletMap, '#map-tiles', '#map-overlay', fmpoints);
+
+  this.flightPlan = new FMFlightPlan();
 
   this.createLeftSidebar();
   this.createRightSidebar();
@@ -24,10 +26,7 @@ FMApp.prototype.createLeftSidebar = function() {
 
   var leftSidebar = this.leftSidebar = new FMSidebar('#left-sidebar', '#tpl-left-');
 
-  leftSidebar.addSection('nearby', 'nearby', 'top five');
-  leftSidebar.addSection('drone', 'drone', 'flight plan');
-
-  leftSidebar.appendItem('nearby', {});
+  leftSidebar.addSection('flight-plan', 'drone', 'flight plan');
 
 };
 

@@ -518,6 +518,19 @@ function resize() {
 
 }
 
+function getWaypoints(latLng, count, distance) {
+  var point;
+  var waypoints = [];
+  var fmpoints = tree.nearest(latLng, count, distance);
+
+  for (var i = 0, ii = fmpoints.length; i < ii; i++) {
+    point = fmpoints[i][0];
+    waypoints.push([point.lng, point.lat]);
+  }
+
+  return waypoints;
+}
+
 FMMap.prototype._init = function(leafletMap, selTiles, selCanvas, points) {
 
   map = leafletMap;
@@ -534,9 +547,22 @@ FMMap.prototype._init = function(leafletMap, selTiles, selCanvas, points) {
 
   $(window).resize(resize);
 
-  //map.on('click', function(e) {
-  //  console.log('click', e.latlng);
-  //});
+  map.clicked = 0;
+
+  map.on('click', function(e) {
+    map.clicked = map.clicked + 1;
+    setTimeout(function() {
+      if(map.clicked == 1) {
+        app.flightPlan.update(getWaypoints(e.latlng, 50, 10));
+        map.clicked = 0;
+      }
+    }, 300);
+  });
+
+  map.on('dblclick', function(event){
+    map.clicked = 0;
+    map.zoomIn();
+  });
 
   map.on('move', updateCellBuffer);
 

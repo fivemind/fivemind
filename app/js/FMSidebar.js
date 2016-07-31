@@ -28,7 +28,6 @@ FMSidebar.prototype.addSection = function(name, title, subTitle) {
     name: name,
     title: title || '',
     subTitle: subTitle || '',
-    items: [],
     redraw: true
   };
 
@@ -74,18 +73,9 @@ FMSidebar.prototype.render = function() {
 };
 
 FMSidebar.prototype.renderSection = function($elSection, section) {
-  var items = section.items;
-
-  for(var i = 0, ii = items.length; i < ii; i++) {
-
-  }
 
   $elSection.replaceWith(this.tplSection(section));
 
   section.redraw = false;
-
-};
-
-FMSidebar.prototype.renderItem = function($elItem, item) {
 
 };

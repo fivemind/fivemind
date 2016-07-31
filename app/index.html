@@ -36,13 +36,51 @@
         <div class="subtitle">{{subTitle}}</div>
       </div>
     </div>
+    <div id="{{name}}-items"></div>
+  </script>
+
+  <script id="tpl-flight-plan-item" type="text/x-handlebars-template">
+    <div>{{lat}} {{lng}}</div>
+  </script>
+
+  <script id="tpl-flight-plan-export" type="text/x-handlebars-template">
+    <a onclick="app.flightPlan.export();">export</a>
+  </script>
+
+  <script id="tpl-awm-mission-header" type="text/x-handlebars-template">
+    <Mission>
+  </script>
+
+  <script id="tpl-awm-mission-waypoint" type="text/x-handlebars-template">
+    <WayPoint>
+      <Latitude>{{latitude}}</Latitude>
+      <Longitude>{{longitude}}</Longitude>
+      <Altitude>{{altitude}}</Altitude>
+      <Speed>{{speed}}</Speed>
+      <TimeLimit>{{timeLimit}}</TimeLimit>
+      <YawDegree>{{yawDegree}}</YawDegree>
+      <HoldTime>{{holdTime}}</HoldTime>
+      <StartDelay>{{startDelay}}</StartDelay>
+      <Period>{{period}}</Period>
+      <RepeatTime>{{repeatTime}}</RepeatTime>
+      <RepeatDistance>{{repeatDistance}}</RepeatDistance>
+      <TurnMode>{{turnMode}}</TurnMode>
+    </WayPoint>
+  </script>
+
+  <script id="tpl-awm-mission-footer" type="text/x-handlebars-template">
+    </Mission>
   </script>
 
   <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
   <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
 
+  <script src="js/FileSaver.min.js"></script>
+
   <script src="js/KdTree-min.js"></script>
+
+  <script src="js/sofm.js"></script>
 
   <script src="js/lokijs.js"></script>
   <script src="js/loki-indexed-adapter.js"></script>
@@ -50,6 +88,7 @@
   <script src="js/FMApp.js"></script>
   <script src="js/FMMap.js"></script>
   <script src="js/FMSidebar.js"></script>
+  <script src="js/FMFlightPlan.js"></script>
 
   <script src="data/fmpoints.js"></script>
 

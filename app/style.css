@@ -68,12 +68,12 @@ body {
 }
 
 #center-column {
-  width: 64%;
+  width: 69%;
 }
 
 #right-column {
   float: right;
-  width: 10%;
+  width: 5%;
 }
 
 #left-sidebar {
@@ -197,4 +197,8 @@ body {
   padding: 0 0.15em;
 
   color: #86d6f7;
+}
+
+#flight-plan-items {
+  font-size: 0.8em;
 }
